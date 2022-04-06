@@ -51,13 +51,11 @@
                                       type="radio"
                                       name="type"
                                       id="bouteille"
-									  
-									{% if result["tag"] == "bouteille" %}
-    									<p>Priority: {{ data['priority'] }}</p>
-									{% endif %}
-									  checked="checked"
+									  value="Bouteille plastique"
 
-                                      value="Bouteille plastique"
+									{% if result['tag'] == 'bouteille' %}
+										checked="checked"
+								  	{% endif %}
                                   >
 
                                   <label for="bouteille">Bouteille plastique</label>
@@ -70,6 +68,10 @@
                                       id="gobelet"
                                       value="gobelet"
 
+									{% if result['tag'] == 'gobelet' %}
+									  checked="checked"
+									{% endif %}
+
                                   >
                                   <label for="gobelet">Gobelet en plastique</label>
 
@@ -79,8 +81,11 @@
                                       type="radio"
                                       name="type"
                                       id="couvert"
-
                                       value="couvert"
+
+									{% if result['tag'] == 'couvert' %}
+									  checked="checked"
+									{% endif %}
                                   >
                                   <label for="couvert">Couverts en plastique</label>
 
