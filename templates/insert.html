@@ -25,13 +25,36 @@
 								src="https://www.gabpproperty.com/media/catalog/product/cache/7/image/730x/0dc2d03fe217f8c83829496872af24a0/r/e/rec7.jpg"
 							/>
 						</p>
-						<hr >
 
-						<div>
+						<p><span>
+							<button class="favorite styled" type="button" onclick="take_photo()">TAKE PHOTO</button>
+							<form action="/waste/pick-type" method="post" enctype="multipart/form-data">
+								<div>
+								  <label for="file">OR CHOOSE A PHOTO FROM YOUR COMPUTER</label>
+								  <input type="file" id="file" name="file" multiple>
+								</div>
+
+								<hr >
+
+								<div>
+								  <button>SUBMIT</button>
+								</div>
+							   </form>
+							<!-- <label for="avatar">CHOOSE A PICTURE:</label><input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg"> -->
+							<!-- <button class="favorite styled" type="button" onclick="upload_photo()">UPLOAD IMAGE</button> -->
+						</span>
+						</p>
+
+
+
+						<!-- <div>
 							<ul class="actions special">
-								<li><a href="/waste/pick-type" class="button">Dechêt déposé</a></li>
+								<li><a href="/waste/pick-type" class="button" type="submit">Dechêt déposé</a></li>
 							</ul>
-						</div>
+						</div> -->
+
+
+						   
 						<!--
 						<hr />
 						<h2>Extra Stuff!</h2>

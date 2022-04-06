@@ -27,6 +27,21 @@
 
 
 						<form method="post" action="/confirmation">
+							<div>
+							<p>
+								WE HAVE DETECTED A {{ result["tag"] }}
+							</p>
+							<p>
+								WITH A {{ result["prob"] }}% CONFIDENCE
+							</p>
+							<p>
+								<img src="data:;base64,{{ img }}"/>
+							</p>
+							<p>
+								NOT CORRECT? PLEASE SELECT THE RIGHT OPTION:
+							</p>
+
+						</div>
 							<div class="fields">
 
 
@@ -36,6 +51,11 @@
                                       type="radio"
                                       name="type"
                                       id="bouteille"
+									  
+									{% if result["tag"] == "bouteille" %}
+    									<p>Priority: {{ data['priority'] }}</p>
+									{% endif %}
+									  checked="checked"
 
                                       value="Bouteille plastique"
                                   >

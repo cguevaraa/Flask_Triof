@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from src.utils import *
+from base64 import b64encode
 
 app = Flask(__name__)
 
@@ -15,11 +16,15 @@ def insert():
     return render_template('insert.html')
 
 
-@app.route('/waste/pick-type')
+@app.route('/waste/pick-type', methods=['POST'])
 def pick_type():
     close_waste_slot()
 
-    return render_template('type.html')
+    img = request.files['file'].read()
+    img2 = b64encode(img).decode("utf-8")
+    result = classify(img)
+
+    return render_template('type.html', result=result, img=img2)
 
 
 @app.route('/confirmation', methods=['POST'])
@@ -28,7 +33,6 @@ def confirmation():
 
     process_waste(waste_type)
     return render_template('confirmation.html')
-
 
 if __name__ == "__main__":
     app.run(debug=True)

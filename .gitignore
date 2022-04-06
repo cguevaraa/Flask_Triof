@@ -1,3 +1,7 @@
 /__pycache__
 /src/__pycache__
 /camera
+/src/classification.py
+/src/settings
+**/classification.py
+**/take_picture.py
