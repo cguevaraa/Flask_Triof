@@ -5,6 +5,12 @@ import os
 import json
 import random
 from matplotlib.image import imread
+from PIL import Image
+from io import BytesIO
+from base64 import b64encode
+import numpy as np
+from keras.preprocessing import image
+import tensorflow as tf
 
 def open_waste_slot():
 
@@ -95,6 +101,15 @@ def take_trash_picture():
 
     return imread(os.path.join("./camera", path))
 
+def to_image(numpy_img):
+    img = Image.fromarray(numpy_img, 'RGB')
+    return img
+
+def to_data_uri(pil_img):
+    data = BytesIO()
+    pil_img.save(data, "JPEG") # pick your format
+    data64 = b64encode(data.getvalue())
+    return u'data:img/jpeg;base64,'+data64.decode('utf-8') 
 
 def classify(img):
 
@@ -128,6 +143,31 @@ def classify(img):
 
     return result
 
+def load_model(vgg16=False):
+    if vgg16:
+        model = tf.keras.models.load_model('src/models/cnn_vgg16')
+    else:
+        model = tf.keras.models.load_model('src/models/cnn')
+    return model
+
+def classify_dirty(img, model):
+    prediction = model.predict(img)
+    result = {
+        "tag": "",
+        "prob": 0
+        }
+
+    if prediction[0][0] > 0.5:
+        result["tag"] = 'sale'
+        result["prob"] = round(prediction[0][0] * 100, 2) # Round the output to two decimal places
+
+    else:
+        result["tag"] = 'propre'
+        result["prob"] = round(100 - (prediction[0][0] * 100), 2) # Round the output to two decimal places
+
+    print(result)
+    return result
+
 def take_picture():
 
     cam = cv2.VideoCapture(0)
@@ -158,3 +198,12 @@ def take_picture():
     cam.release()
 
     cv2.destroyAllWindows()
+
+def read_img_from_form(request):
+    img_bytes = request.files['file'].read()
+    img_str = b64encode(img_bytes).decode("utf-8") # Img to send to the render template
+    img_as_np = np.frombuffer(img_bytes, dtype=np.uint8)
+    img = cv2.imdecode(img_as_np, flags=1)
+    img = cv2.resize(img, (64,64), interpolation=cv2.INTER_LINEAR)
+    img = np.expand_dims(img, axis = 0)
+    return img, img_str

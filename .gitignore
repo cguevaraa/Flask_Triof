@@ -5,3 +5,5 @@
 /src/settings
 **/classification.py
 **/take_picture.py
+**/src/scraper.py
+**/src/img_prep.py

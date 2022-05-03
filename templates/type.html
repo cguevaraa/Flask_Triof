@@ -22,23 +22,23 @@
 				<!-- Main -->
 					<section id="main">
 						<header>														
-							<p>Please select the type of waste</p>
+							<p>Veuillez sélectionner le type de déchet</p>
 						</header>
 
 
 						<form method="post" action="/confirmation">
 							<div>
 							<p>
-								WE HAVE DETECTED A {{ result["tag"] }}
+								{{ result["tag"] }} DETECTÉ
 							</p>
 							<p>
-								WITH A {{ result["prob"] }}% CONFIDENCE
+								(PROBABILITÉ {{ result["prob"] }}%)
 							</p>
 							<p>
 								<img src="data:;base64,{{ img }}" style="width:15em;"/>
 							</p>
 							<p>
-								NOT CORRECT? PLEASE SELECT THE RIGHT OPTION:
+								C'EST NE PAS CORRECT? VEUILLEZ SÉLECTIONNER L'OPTION CORRECTE:
 							</p>
 
 						</div>
